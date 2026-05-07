@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Satoshi:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0.07 0.005 285;
+    --foreground: 1 0 0;
+    --card: 0.11 0.008 285;
+    --card-foreground: 1 0 0;
+    --popover: 0.1 0.008 285;
+    --popover-foreground: 1 0 0;
+    --primary: 0.78 0.13 80;
+    --primary-foreground: 0.07 0.005 285;
+    --secondary: 0.15 0.01 285;
+    --secondary-foreground: 1 0 0;
+    --muted: 0.14 0.008 285;
+    --muted-foreground: 0.65 0.01 285;
+    --accent: 0.78 0.13 80;
+    --accent-foreground: 0.07 0.005 285;
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 1 0 0;
+    --border: 0.22 0.01 285;
+    --input: 0.18 0.01 285;
+    --ring: 0.78 0.13 80;
+    --radius: 0rem;
+    --chart-1: 0.78 0.13 80;
+    --chart-2: 0.65 0.1 200;
+    --chart-3: 0.55 0.12 310;
+    --chart-4: 0.7 0.15 140;
+    --chart-5: 0.6 0.14 50;
+    --sidebar: 0.09 0.006 285;
+    --sidebar-foreground: 1 0 0;
+    --sidebar-primary: 0.78 0.13 80;
+    --sidebar-primary-foreground: 0.07 0.005 285;
+    --sidebar-accent: 0.13 0.01 285;
+    --sidebar-accent-foreground: 1 0 0;
+    --sidebar-border: 0.2 0.01 285;
+    --sidebar-ring: 0.78 0.13 80;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    color: white;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Satoshi", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Playfair Display", serif;
+    color: white;
+  }
+}
+
+/* Global white text override */
+* {
+  color: white;
+}
+
+/* Preserve dark text on light-background buttons */
+.text-primary-foreground,
+[class*="text-primary-foreground"],
+.text-accent-foreground,
+[class*="text-accent-foreground"],
+.text-background,
+[class*="text-background"] {
+  color: oklch(0.07 0.005 285) !important;
+}
+
+/* Hero button: dark text on white background */
+.btn-hero {
+  color: oklch(0.07 0.005 285) !important;
+}
+
+@layer utilities {
+  .text-gold {
+    color: oklch(var(--primary));
+  }
+  .bg-gold {
+    background-color: oklch(var(--primary));
+  }
+  .border-gold {
+    border-color: oklch(var(--primary));
+  }
+  .grain-overlay {
+    position: relative;
+  }
+  .grain-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+  .gold-glow {
+    box-shadow: 0 0 40px oklch(0.78 0.13 80 / 0.15), 0 0 80px
+      oklch(0.78 0.13 80 / 0.08);
+  }
+  .card-hover {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow
+      0.3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-6px) rotate(-0.5deg);
+    box-shadow: 0 20px 60px oklch(0.78 0.13 80 / 0.12);
+  }
+  .btn-gold-glow:hover {
+    box-shadow: 0 0 30px oklch(0.78 0.13 80 / 0.4);
+  }
+  .btn-hero {
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .btn-hero:hover {
+    box-shadow: 0 0 40px oklch(0.95 0.01 85 / 0.3);
+  }
+}
+
+/* Announcement bar */
+.announcement-bar {
+  background: oklch(0.07 0.005 285);
+  border-bottom: 1px solid oklch(0.22 0.01 285);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(var(--border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(var(--primary));
+}
+
+/* Chat typing indicator */
+@keyframes typing-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+.typing-dot {
+  animation: typing-dot 1.2s infinite;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
